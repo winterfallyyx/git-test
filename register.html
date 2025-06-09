@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+<div id="app">
+  姓名：<input v-model="name" type="name"> <br><br>
+  单身：<input v-model="isSingle" type="checkbox" > <br><br>
+  性别：男<input v-model="gender" type="radio" name = "gender" value="1">女<input v-model="gender" type="radio" name = "gender" value="2"> <br><br>
+  城市：<select v-model="city">
+  <option value="北京">北京</option>
+  <option value="天津">天津</option>
+</select><br><br>
+自我介绍：<br><br><input type="text" placeholder="输入自我介绍..." v-model="text"> <br><br>
+  <button @click = "print">提交</button>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                name: '',
+                isSingle: false,
+                gender: '1',
+                city : "北京",
+                text : ""
+
+            },
+            methods:{
+            print(){
+              console.log("姓名:"+this.name+"\n单身："+(this.isSingle?"是":"否")+"\n性别："+(this.gender==="1"?"男":"女"))
+            }
+            }
+        })
+    </script>
+</body>
+</html>

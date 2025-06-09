@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+<div id="app">
+  账户：<input v-model="username" type="text"> <br><br>
+  密码：<input v-model="password" type="password"> <br><br>
+  <textarea>{{username+password}}</textarea><br></br>
+  <button @click = "switchshow">切换显示</button>
+  <div v-show="show">hello</div>
+  <button @click = "lastimg" v-if = "imgindex>1">上一张</button>
+  <img :src="imgarr[imgindex-1]" :title="imgtitle"></img>
+  <button @click = "nextimg" v-if = "imgindex!= imgarr.length">下一张</button>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                username: '',
+                password: '',
+                show : true ,
+                imgtitle : "img",
+                imgarr : ["QQ20250521-153407.png", "QQ20250521-154357.png","QQ20250516-112636.png"],
+                imgindex : 1
+            },
+            methods:{
+            switchshow(){
+            console.log("click")
+            if(this.show == true){this.show = false}
+            else{this.show = true}
+            },
+            lastimg(){
+            this.imgindex --
+            },
+            nextimg(){
+            this.imgindex++
+            }
+            }
+        })
+    </script>
+</body>
+</html>

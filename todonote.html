@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .highlight {
+  background-color: #ff0000;   /*红色背景 */
+  color: #ffffff;           /* 白色文字 */
+  padding: 8px 12px;        /* 可选：增加内边距提升可读性 */
+  border-radius: 4px;       /* 可选：圆角边框 */
+}
+
+/* 普通样式：白色背景 + 黑色文字 */
+.normal {
+  background-color: #ffffff; /* 白色背景 */
+  color: #000000;           /* 黑色文字 */
+  padding: 8px 12px;        /* 保持与高亮样式一致的间距 */
+}
+.h{
+display: flex;
+list-style: none;
+}
+  </style>
+</head>
+<body>
+<div id="app">
+  <input v-model="todo" type="text">
+  <button @click = "addtodo">添加任务</button>
+  <ol>
+    <li v-for = "(item, index) in todolist" :key = "item.id">{{ item.text }}<button @click = "deltodo(item.id)"> 删除</button></li>
+
+  </ol>
+  <hr>
+  <p>{{ "合计："+count }}</p>
+  <button @click = "cleartodo">清空</button><br><br>
+  <ul class="h">
+    <li v-for ="(item,index) in labellist" :key = "item.id" ><button @click = "sethighlight(index)"  :class="{highlight:highlightindex === item.id}">{{ item.name }}&nbsp&nbsp</button> </li>
+  </ul>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                todo : "" ,
+                todolist : [{text:"前端",id:1},{text:"后端",id:2}],
+                count : 2,
+                labellist : [{name:"1",id:1},{name:"2",id:2},{name:"3",id:3}],
+                highlightindex : 0
+            },
+            methods:{
+            addtodo(){
+            let newid = this.todolist[this.todolist.length - 1].id + 1
+            this.todolist.push({text:this.todo,id:newid})
+<!--            this.todolist.push({text:this.todo,id:+new Date()})-->
+            this.todo = ""
+            this.count++
+            },
+            deltodo(id){
+            this.todolist.splice(this.todolist.findIndex(todo => todo.id === id),1)
+            this.count--
+            },
+            cleartodo(){
+            this.todolist = []
+            this.count = 0
+            },
+            sethighlight(index){
+            this.highlightindex = index+1
+
+            }
+            }
+        })
+    </script>
+</body>
+</html>
